@@ -21,6 +21,11 @@ body{background:radial-gradient(900px 520px at 50% 0,#70485c,transparent 70%),va
 #fx{position:fixed;inset:0;pointer-events:none;z-index:30}
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;justify-content:space-between;align-items:center;gap:8px 16px;padding:16px 0;border-bottom:1px solid var(--line);flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 84%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .brand{font:600 22px var(--serif);letter-spacing:.02em}
+.lead{display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:7px 16px;transition:border-color .2s,background .2s}
+.back span{display:inline-block;transition:transform .25s}
+.back:hover{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 14%,transparent)}
+.back:hover span{transform:translateX(-4px)}
 .meta{color:var(--mute);font-size:14px;display:flex;gap:6px 18px;align-items:center;flex-wrap:wrap}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block;margin-right:8px}
 .dot.live{animation:pulse 2s infinite}
@@ -130,7 +135,7 @@ section{padding-top:56px}
 <div id="prog"></div><canvas id="fx"></canvas><div id="toasts"></div>
 <div class="wrap">
 <header>
-  <div class="brand" id="brand">Wardrobe Refresh</div>
+  <div class="lead"><a class="back" id="back" href="https://klamby.id" target="_top"><span aria-hidden="true">←</span>Kembali ke klamby.id</a><div class="brand" id="brand">Wardrobe Refresh</div></div>
   <div class="meta"><span id="campaign"></span><span id="period"></span><span><i class="dot live" id="dot"></i><span id="updated">Loading…</span></span></div>
 </header>
 
@@ -162,6 +167,7 @@ section{padding-top:56px}
 /* ===== CONFIG: paste your Apps Script Web App URL below ===== */
 const CONFIG = {
   API_URL: 'https://script.google.com/macros/s/AKfycbwRPEcszfXFfTg18oQiKXpS-CiJD73iMZ9REYY6rYJ_tEDnRC5jGMznljo96ouhZg5M/exec',
+  HOME_URL: 'https://klamby.id', HOME_LABEL: 'Kembali ke klamby.id',   // tombol kembali; kosongkan HOME_URL untuk menyembunyikan
   BRAND: 'Wardrobe Refresh',        // used when the Config sheet has no "brand" row
   REFRESH_SECONDS: 45,
   TOP_N: 10,
@@ -342,6 +348,7 @@ $('q').addEventListener('input', () => { state.shown = CONFIG.PAGE_SIZE; renderD
 $('tierSel').addEventListener('change', () => { state.shown = CONFIG.PAGE_SIZE; renderDirectory(); });
 $('sortSel').addEventListener('change', renderDirectory);
 $('more').addEventListener('click', () => { state.shown += CONFIG.PAGE_SIZE; renderDirectory(); });
+if (CONFIG.HOME_URL) { $('back').href = CONFIG.HOME_URL; $('back').lastChild.textContent = CONFIG.HOME_LABEL; } else $('back').hidden = true;
 refresh(); setInterval(refresh, (CONFIG.API_URL ? CONFIG.REFRESH_SECONDS : 6) * 1000);
 </script>
 </body>

@@ -132,12 +132,12 @@ function normalize(raw) {
   list.forEach((c,i) => c.rank = i + 1);            // rank is always computed here, from spending
   return list;
 }
-function demoData() {   // preview only; used when API_URL is empty
+/*function demoData() {   // preview only; used when API_URL is empty
   const names = ['Adinda Prameswari','Bagas Wicaksono','Citra Lestari','Dimas Anggara','Elisabeth Tan','Farhan Maulana','Gita Savitri','Hendra Kusuma','Intan Permata','Joko Santoso','Kirana Putri','Lukman Hakim','Maya Kusumawati','Nanda Pratama'];
   const tiers = ['VIP','Gold','Silver'];
   return {updatedAt:new Date().toISOString(), config:{brand:'Your Brand',campaign:'Preview mode: sample data',period:'Set API_URL to go live'},
     customers:names.map((n,i)=>({'Customer Name':n,'Total Spending':Math.round((26e6-i*1.6e6)*(0.9+Math.random()*.2)),'Profile Image':'','Member Tier':tiers[Math.min(2,Math.floor(i/4))]}))};
-}
+}*/
 
 /* ===== Rendering ===== */
 const av = (c, cls='') => c.img ? `<img class="av ${cls}" src="${esc(c.img)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<div class="av ${cls}" aria-hidden="true">${esc(initials(c.name))}</div>`;

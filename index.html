@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Top Spenders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#303030;--bg2:#303030;--ink:#f4ede6;--mute:#a999a0;--line:rgba(244,237,230,.14);
+--gold:#A39F57;--silver:#c3c7d0;--bronze:#A39F57;--serif:'Ambroise Francois','Didot',Georgia,serif;--sans:'Kedebideri',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{font:600 22px var(--serif);letter-spacing:.02em}
+.meta{color:var(--mute);font-size:14px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block;margin-right:8px}
+.dot.live{animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.hero{padding:72px 0 24px;text-align:center}
+h1{font:400 clamp(44px,8vw,96px)/1 var(--serif);letter-spacing:-.01em}
+.sub{color:var(--mute);margin-top:16px;font-size:18px}
+.podium{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:clamp(12px,3vw,40px);align-items:end;padding:64px 0 24px}
+.pc{text-align:center;position:relative;padding-bottom:28px;border-bottom:3px solid var(--c)}
+.pc.r1{--c:var(--gold);padding-bottom:44px;background:linear-gradient(to top,rgba(212,175,106,.12),transparent 70%)}
+.pc.r2{--c:var(--silver)}.pc.r3{--c:var(--bronze)}
+.num{font:italic 400 clamp(56px,9vw,120px)/1 var(--serif);color:var(--c)}
+.r1 .num{font-size:clamp(80px,13vw,170px)}
+.av{width:84px;height:84px;border-radius:50%;margin:8px auto 14px;object-fit:cover;background:var(--bg2);display:grid;place-items:center;font:600 28px var(--serif);color:var(--c);border:2px solid var(--c)}
+.r1 .av{width:116px;height:116px;font-size:38px}
+.pc h3{font:600 clamp(18px,2.4vw,28px)/1.2 var(--serif)}
+.amt{font-weight:600;color:var(--c);margin-top:6px;font-size:clamp(15px,1.8vw,20px)}
+.tier{display:inline-block;margin-top:10px;font-size:12px;color:var(--mute);border:1px solid var(--line);padding:2px 12px;border-radius:99px}
+.crown{font:italic 16px var(--serif);color:var(--gold);margin-bottom:4px}
+h2{font:400 clamp(30px,4vw,44px)/1.1 var(--serif);margin-bottom:28px}
+section{padding:72px 0 0}
+.row{display:grid;grid-template-columns:64px 48px 1fr auto;gap:16px;align-items:center;padding:18px 0;border-top:1px solid var(--line)}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row .rk{font:italic 400 34px var(--serif);color:var(--mute)}
+.row .av{width:44px;height:44px;margin:0;font-size:16px;border:1px solid var(--line);color:var(--ink)}
+.row .nm{font-weight:500}.row .tr{color:var(--mute);font-size:13px}
+.row .am{font-weight:600;font-variant-numeric:tabular-nums}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px}
+.stat b{display:block;font:400 clamp(28px,3.4vw,40px)/1.15 var(--serif)}
+.stat span{color:var(--mute);font-size:14px}
+.tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+input,select,button{font:inherit;color:var(--ink);background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+input{flex:1;min-width:200px}
+button{cursor:pointer}button:hover{border-color:var(--gold)}
+.more{margin:28px auto 0;display:block}
+.note{color:var(--mute);padding:48px 0;text-align:center}
+.err{color:#f0a3a3}
+footer{padding:72px 0 48px;color:var(--mute);font-size:13px;text-align:center}
+@media(max-width:720px){
+.podium{grid-template-columns:1fr;gap:36px}
+.pc.r1{order:-1}
+.row{grid-template-columns:40px 40px 1fr;}
+.row .am{grid-column:3}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand" id="brand">Your Brand</div>
+  <div class="meta"><span id="campaign"></span><span id="period"></span><span><i class="dot live" id="dot"></i><span id="updated">Loading…</span></span></div>
+</header>
+
+<main id="main" aria-live="polite">
+  <div class="hero">
+    <h1>Our Top Spenders</h1>
+    <p class="sub">Celebrating our most valued customers</p>
+  </div>
+  <div id="state" class="note">Loading the leaderboard…</div>
+  <div class="podium" id="podium" hidden></div>
+  <section id="board" hidden><h2>Ranks 4 to 10</h2><div id="list"></div></section>
+  <section id="statsec" hidden><h2>The numbers</h2><div class="stats" id="stats"></div></section>
+  <section id="dir" hidden>
+    <h2>All customers</h2>
+    <div class="tools">
+      <input id="q" type="search" placeholder="Search by name" aria-label="Search by name">
+      <select id="tierSel" aria-label="Filter by tier"></select>
+      <select id="sortSel" aria-label="Sort"><option value="desc">Highest spending</option><option value="asc">Lowest spending</option></select>
+    </div>
+    <div id="full"></div>
+    <button class="more" id="more" hidden>Show more</button>
+  </section>
+</main>
+<footer id="foot"></footer>
+</div>
+
+<script>
+/* ===== CONFIG: paste your Apps Script Web App URL below ===== */
+const CONFIG = {
+  API_URL: 'https://script.google.com/macros/s/AKfycbx4K1RVNS0bNOZLsAuNLu7ssx1fZP6G0PMRiP1vgUTNm50Y5w2QGYuCqeqWm2m45s6m/exec',            // e.g. 'https://script.google.com/macros/s/XXXX/exec'. Leave empty to preview with sample data.
+  REFRESH_SECONDS: 45,
+  TOP_N: 10,
+  PAGE_SIZE: 25,
+  LOCALE: 'id-ID', CURRENCY: 'IDR'
+};
+
+/* ===== Helpers ===== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const idr = n => new Intl.NumberFormat(CONFIG.LOCALE, {style:'currency',currency:CONFIG.CURRENCY,maximumFractionDigits:0}).format(n);
+const pick = (o, keys) => { for (const k of Object.keys(o)) if (keys.includes(k.toLowerCase().replace(/[\s_]/g,''))) return o[k]; };
+const initials = n => n.split(/\s+/).slice(0,2).map(w => w[0]).join('').toUpperCase();
+const state = { all: [], shown: CONFIG.PAGE_SIZE, lastKey: '' };
+
+/* ===== Data layer ===== */
+async function loadData() {
+  if (!CONFIG.API_URL) return demoData();
+  const res = await fetch(CONFIG.API_URL, {cache:'no-store'});
+  if (!res.ok) throw new Error('The spreadsheet service returned an error (' + res.status + ').');
+  return res.json();
+}
+function normalize(raw) {
+  const list = raw.customers.map(o => ({
+    name: String(pick(o, ['customername','name','customer']) ?? '').trim(),
+    spend: Number(String(pick(o, ['totalspending','spending','total','amount']) ?? 0).replace(/[^\d.-]/g,'')) || 0,
+    img: String(pick(o, ['profileimage','image','avatar','photo']) ?? '').trim(),
+    tier: String(pick(o, ['membertier','tier','membership']) ?? '').trim(),
+    extra: o
+  })).filter(c => c.name);
+  list.sort((a,b) => b.spend - a.spend || a.name.localeCompare(b.name));
+  list.forEach((c,i) => c.rank = i + 1);            // rank is always computed here, from spending
+  return list;
+}
+function demoData() {   // preview only; used when API_URL is empty
+  const names = ['Adinda Prameswari','Bagas Wicaksono','Citra Lestari','Dimas Anggara','Elisabeth Tan','Farhan Maulana','Gita Savitri','Hendra Kusuma','Intan Permata','Joko Santoso','Kirana Putri','Lukman Hakim','Maya Kusumawati','Nanda Pratama'];
+  const tiers = ['VIP','Gold','Silver'];
+  return {updatedAt:new Date().toISOString(), config:{brand:'Your Brand',campaign:'Preview mode: sample data',period:'Set API_URL to go live'},
+    customers:names.map((n,i)=>({'Customer Name':n,'Total Spending':Math.round((26e6-i*1.6e6)*(0.9+Math.random()*.2)),'Profile Image':'','Member Tier':tiers[Math.min(2,Math.floor(i/4))]}))};
+}
+
+/* ===== Rendering ===== */
+const av = (c, cls='') => c.img ? `<img class="av ${cls}" src="${esc(c.img)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<div class="av ${cls}" aria-hidden="true">${esc(initials(c.name))}</div>`;
+const tierTag = c => c.tier ? `<span class="tier">${esc(c.tier)}</span>` : '';
+
+function renderPodium(top) {
+  const order = [top[1], top[0], top[2]].filter(Boolean);
+  $('podium').innerHTML = order.map(c => `<article class="pc r${c.rank}" data-k="${esc(c.name)}">
+    ${c.rank===1?'<div class="crown">Our champion</div>':''}
+    <div class="num">${c.rank}</div>${av(c)}<h3>${esc(c.name)}</h3><div class="amt">${idr(c.spend)}</div>${tierTag(c)}</article>`).join('');
+}
+function renderList(rows) {
+  const box = $('list');
+  const first = new Map([...box.children].map(el => [el.dataset.k, el.getBoundingClientRect().top]));
+  box.innerHTML = rows.map(c => `<div class="row" data-k="${esc(c.name)}"><div class="rk">${c.rank}</div>${av(c)}
+    <div><div class="nm">${esc(c.name)}</div><div class="tr">${esc(c.tier)}</div></div><div class="am">${idr(c.spend)}</div></div>`).join('');
+  [...box.children].forEach(el => {                 // FLIP: slide rows from old to new position
+    const old = first.get(el.dataset.k); if (old == null) return;
+    const dy = old - el.getBoundingClientRect().top; if (!dy) return;
+    el.animate([{transform:`translateY(${dy}px)`},{transform:'none'}],{duration:600,easing:'cubic-bezier(.2,.8,.2,1)'});
+  });
+}
+function renderStats(all) {
+  const total = all.reduce((s,c) => s + c.spend, 0);
+  const items = [['Customers', all.length.toLocaleString(CONFIG.LOCALE)],['Total spending', idr(total)],['Highest spending', idr(all[0].spend)],['Average per customer', idr(total/all.length)]];
+  $('stats').innerHTML = items.map(([l,v]) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('');
+}
+function renderDirectory() {
+  const q = $('q').value.trim().toLowerCase(), t = $('tierSel').value, asc = $('sortSel').value === 'asc';
+  let rows = state.all.filter(c => (!q || c.name.toLowerCase().includes(q)) && (!t || c.tier === t));
+  if (asc) rows = rows.slice().sort((a,b) => a.spend - b.spend);
+  $('full').innerHTML = rows.length ? rows.slice(0, state.shown).map(c => `<div class="row"><div class="rk">${c.rank}</div>${av(c)}
+    <div><div class="nm">${esc(c.name)}</div><div class="tr">${esc(c.tier)}</div></div><div class="am">${idr(c.spend)}</div></div>`).join('')
+    : '<div class="note">No customers match your search. Clear the filters to see everyone.</div>';
+  $('more').hidden = rows.length <= state.shown;
+}
+function syncTierOptions() {
+  const sel = $('tierSel'), cur = sel.value, tiers = [...new Set(state.all.map(c => c.tier).filter(Boolean))];
+  sel.innerHTML = '<option value="">All tiers</option>' + tiers.map(t => `<option ${t===cur?'selected':''}>${esc(t)}</option>`).join('');
+  sel.hidden = !tiers.length;
+}
+
+function render(raw) {
+  const all = normalize(raw); state.all = all;
+  const cfg = raw.config || {};
+  $('brand').textContent = cfg.brand || 'Your Brand';
+  $('campaign').textContent = cfg.campaign || ''; $('period').textContent = cfg.period || '';
+  $('updated').textContent = 'Updated ' + new Date(raw.updatedAt).toLocaleString(CONFIG.LOCALE,{dateStyle:'medium',timeStyle:'short'});
+  $('dot').classList.add('live');
+  if (!all.length) { $('state').hidden = false; $('state').textContent = 'No customers yet. Add rows to the Spenders sheet and they will appear here.'; return; }
+  $('state').hidden = true;
+  ['podium','board','statsec','dir'].forEach(id => $(id).hidden = false);
+  const key = JSON.stringify(all.slice(0, CONFIG.TOP_N).map(c => [c.name, c.spend]));
+  if (key !== state.lastKey) { renderPodium(all.slice(0,3)); renderList(all.slice(3, CONFIG.TOP_N)); state.lastKey = key; }
+  renderStats(all); syncTierOptions(); renderDirectory();
+  $('foot').textContent = 'Rankings are calculated from total spending and refresh automatically every ' + CONFIG.REFRESH_SECONDS + ' seconds.';
+}
+
+async function refresh() {
+  try { render(await loadData()); }
+  catch (e) {
+    $('dot').classList.remove('live');
+    if (!state.all.length) { $('state').hidden = false; $('state').className = 'note err'; $('state').textContent = 'We could not load the leaderboard. Check that the Apps Script is deployed with access set to "Anyone", then reload.'; }
+    else $('updated').textContent = 'Connection lost. Showing the last update.';
+  }
+}
+$('q').addEventListener('input', () => { state.shown = CONFIG.PAGE_SIZE; renderDirectory(); });
+$('tierSel').addEventListener('change', () => { state.shown = CONFIG.PAGE_SIZE; renderDirectory(); });
+$('sortSel').addEventListener('change', renderDirectory);
+$('more').addEventListener('click', () => { state.shown += CONFIG.PAGE_SIZE; renderDirectory(); });
+refresh(); setInterval(refresh, CONFIG.REFRESH_SECONDS * 1000);
+</script>
+</body>
+</html>

@@ -319,7 +319,7 @@ function render(raw) {
   state.spends = Object.fromEntries(all.map(c => [c.name, c.spend]));
   if (state.first) { state.first = false;
     setTimeout(() => { const c = document.querySelector('.pc.r1'); if (c) { const r = c.getBoundingClientRect(); burst(r.left + r.width/2, r.top + r.height/3); } }, 1900); }
-  $('foot').textContent = 'Rankings are calculated from total spending and refresh automatically.';
+  $('foot').textContent = 'Peringkat sementara. Pemenang ditentukan berdasarkan 3 akumulasi berlanja tertinggi yang mencapai minimum Rp50.000.000 hingga akhir periode. S&K berlaku.';
 }
 
 async function refresh() {

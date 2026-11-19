@@ -22,8 +22,8 @@ window.LEADERBOARD_CONFIG = {
 
   /* 3) Campaign text (kept short on purpose) */
   brandName: "KLAMBY",
-  headline: "Wardrobe Refresh",
-  campaignTitle: "Top Spender",
+  headline: "Top Spender",
+  campaignTitle: "TOP 3 GET SPECIAL REWARD - BODIMAX TREADMILL",
   prizeName: "Bodimax Treadmill",
   campaignPeriod: "13–26 November 2026",
   footerNote: "Peringkat sementara. Pemenang ditentukan berdasarkan 3 akumulasi belanja tertinggi yang mencapai minimum Rp 50.000.000 hingga akhir periode. S&K berlaku.",

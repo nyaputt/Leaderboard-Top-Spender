@@ -518,20 +518,33 @@ body.is-present .prize { width: min(100%, 616px, calc((100vh - 560px) * .9)); }
 .filter { display: none; }
 
 
-/* Tombol back to klamby.id */
-.topbar__right { display: flex; align-items: center; gap: 12px; }
-.back-btn {
-  font-family: var(--font-body);
-  font-size: .8rem;
-  letter-spacing: .12em;
+/* Tombol back to klamby.id (CTA) */
+.topbar .topbar__right { display: flex !important; align-items: center; gap: 12px; }
+.topbar a.back-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body) !important;
+  font-size: .78rem !important;
+  font-weight: 600;
+  letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--cream);
-  background: var(--plum);
-  padding: 10px 18px;
+  color: #F2ECE0 !important;
+  background: #563643 !important;
+  border: 1px solid #563643;
+  padding: 12px 22px !important;
   border-radius: 999px;
-  text-decoration: none;
-  transition: background .25s, transform .25s;
+  text-decoration: none !important;
+  box-shadow: 0 6px 18px rgba(86,54,67,.18);
+  transition: background .25s, color .25s, transform .25s, box-shadow .25s;
 }
-.back-btn:hover { background: var(--gold); transform: translateY(-1px); }
-body.is-present .back-btn { display: none; }
-@media (max-width: 600px) { .back-btn { font-size: .7rem; padding: 8px 12px; } }
+.topbar a.back-btn:hover {
+  background: #AD9676 !important;
+  border-color: #AD9676;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(86,54,67,.22);
+}
+body.is-present .topbar a.back-btn { display: none !important; }
+@media (max-width: 600px) {
+  .topbar a.back-btn { font-size: .68rem !important; padding: 9px 14px !important; }
+}

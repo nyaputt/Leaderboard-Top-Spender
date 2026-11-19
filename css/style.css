@@ -512,3 +512,7 @@ body.is-present .headline { font-size: clamp(2.6rem, 8vh, 7.5rem); }
 .prize-stage { margin-top: clamp(16px, 2.5vw, 36px); }
 body.is-present .prize-stage { margin-top: 3vh; }
 body.is-present .prize { width: min(100%, 616px, calc((100vh - 560px) * .9)); }
+
+
+/* Top 5 saja */
+.filter { display: none; }

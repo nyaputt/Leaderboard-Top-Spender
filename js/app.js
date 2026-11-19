@@ -163,6 +163,11 @@
   }
 
   function displayName(name) {
+    // An email typed as a name: show only the start, never the full address
+    if (CFG.hideEmails !== false && /\S+@\S+\.\S+/.test(name)) {
+      var local = name.split("@")[0];
+      return local.slice(0, Math.min(4, local.length)) + "***";
+    }
     if (!CFG.maskNames) return name;
     return name.split(/\s+/).map(function (w) {
       return w.length <= 2 ? w : w.slice(0, 2) + "*".repeat(w.length - 2);
@@ -183,7 +188,14 @@
      Accepts: [{...}, ...] · [[header...], [row...]] · {data|rows|values|items: ...} · CSV text */
   function jsonToTable(json) {
     if (json && !Array.isArray(json)) {
-      json = json.data || json.rows || json.values || json.items || json.result || json.leaderboard || [];
+      // remember the script's own timestamp, if it sends one
+      state.sourceUpdatedAt = json.updatedAt || json.updated_at || json.lastUpdated || json.timestamp || null;
+      var known = ["customers", "data", "rows", "values", "items", "result", "leaderboard", "records"];
+      var found = null;
+      for (var i = 0; i < known.length && !found; i++) if (Array.isArray(json[known[i]])) found = json[known[i]];
+      // otherwise: the first list inside the object
+      if (!found) Object.keys(json).some(function (k) { return Array.isArray(json[k]) && json[k].length ? (found = json[k]) : false; });
+      json = found || [];
     }
     if (!Array.isArray(json) || !json.length) return [];
     if (Array.isArray(json[0])) return json.map(function (r) { return r.map(function (v) { return v == null ? "" : String(v); }); });
@@ -228,6 +240,7 @@
     if (state.loading) return;
     state.loading = true;
     var apps = (CFG.appsScriptUrl || "").trim();
+    state.sourceUpdatedAt = null;
     var url = apps || toCsvUrl(CFG.sheetUrl);
     state.isDemo = !url;
     if (!url) url = "sample-data.csv";
@@ -246,7 +259,8 @@
         state.lastOk = new Date();
         $("#demoBanner").hidden = !state.isDemo;
         setStatus(state.isDemo ? "demo" : null, state.isDemo ? "Demo data" : "Live");
-        $("#lastUpdated").textContent = "Updated " + timeFmt.format(state.lastOk);
+        var src = state.sourceUpdatedAt ? new Date(state.sourceUpdatedAt) : null;
+        $("#lastUpdated").textContent = "Updated " + timeFmt.format(src && !isNaN(src) ? src : state.lastOk);
         if (manual) toast("Leaderboard refreshed");
       })
       .catch(function (err) {

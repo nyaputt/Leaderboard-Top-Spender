@@ -37,7 +37,7 @@ window.LEADERBOARD_CONFIG = {
   currency: "IDR",
 
   /* 6) Leaderboard options */
-  maxRows: 100,          // how many customers to show at most
+  maxRows: 5,          // how many customers to show at most
   maskNames: false,      // true = "Anindya Pratiwi" shows as "An***** Pr******"
   autoScrollInPresentation: true,
 

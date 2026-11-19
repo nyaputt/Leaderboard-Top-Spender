@@ -112,6 +112,29 @@ button{cursor:pointer}button:hover,input:focus,select:hover{border-color:var(--g
 .more{margin:28px auto 0;display:block}
 .note{color:var(--mute);padding:48px 0;text-align:center}.err{color:var(--dn)}
 footer{padding:72px 0 48px;color:var(--mute);font-size:13px;text-align:center}
+
+.eyebrow,.reward-kicker{display:block;color:var(--gold);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.reward-head{display:grid;grid-template-columns:1fr 1.2fr;gap:12px 32px;align-items:end;margin-bottom:28px}
+.reward-head .eyebrow{grid-column:1/-1}
+.reward-head h2{font-size:clamp(42px,7vw,76px);margin:0;letter-spacing:-.035em}
+.reward-head h2 em,.reward-card h3 em{color:var(--gold);font-style:italic}
+.reward-intro{max-width:430px;color:var(--mute);font-size:15px}
+.reward-card{display:grid;grid-template-columns:1fr 1fr;min-height:390px;border:1px solid var(--line);background:linear-gradient(125deg,var(--deep),color-mix(in srgb,var(--bg2) 65%,var(--deep)));overflow:hidden}
+.reward-copy{padding:clamp(24px,5vw,54px);display:flex;flex-direction:column;justify-content:center}
+.reward-card h3{font:400 clamp(42px,6vw,72px)/.98 var(--serif);margin:18px 0}
+.reward-copy>p{max-width:460px;color:var(--mute);font-size:15px}
+.reward-values{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
+.reward-values b{display:block;color:var(--gold);font:600 12px var(--sans);letter-spacing:.08em}
+.reward-values span{display:block;color:var(--mute);font-size:12px;line-height:1.45;margin-top:7px}
+.reward-visual{position:relative;min-height:390px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--gold) 20%,transparent),transparent 62%),color-mix(in srgb,var(--bg2) 55%,var(--deep))}
+.reward-orbit{position:absolute;width:min(72%,380px);aspect-ratio:1;border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);border-radius:50%;box-shadow:0 0 0 32px color-mix(in srgb,var(--gold) 4%,transparent),0 0 0 64px color-mix(in srgb,var(--gold) 3%,transparent)}
+.reward-product-label{position:absolute;left:8%;top:12%;font:italic 400 clamp(24px,3vw,42px)/.95 var(--serif);color:color-mix(in srgb,var(--ink) 78%,transparent);z-index:1}
+.reward-product-placeholder{position:relative;z-index:2;width:min(68%,330px);aspect-ratio:1.25;display:flex;flex-direction:column;justify-content:center;align-items:center;border:1px dashed color-mix(in srgb,var(--gold) 65%,transparent);background:color-mix(in srgb,var(--deep) 75%,transparent);transform:rotate(-5deg);box-shadow:0 24px 70px rgba(0,0,0,.25)}
+.reward-product-placeholder span{font-size:9px;letter-spacing:.2em;color:var(--mute)}
+.reward-product-placeholder b{font:600 clamp(28px,4vw,48px) var(--serif);color:var(--gold);margin-top:10px}
+.reward-product-placeholder small{font-size:11px;letter-spacing:.22em;color:var(--ink)}
+.reward-footnote{position:absolute;bottom:16px;right:18px;max-width:230px;text-align:right;color:var(--mute);font-size:10px}
+
 @media(max-width:720px){
 .wrap{padding:0 16px}
 .hero{padding:56px 0 32px}
@@ -149,16 +172,34 @@ section{padding-top:56px}
   <div id="state" class="note">Loading the leaderboard…</div>
   <div class="podium" id="podium" hidden></div>
   <section id="board" hidden><h2>Ranks 4 to 10</h2><div id="list"></div></section>
-  <section id="statsec" hidden><h2>The numbers</h2><div class="stats" id="stats"></div></section>
-  <section id="dir" hidden>
-    <h2>All customers</h2>
-    <div class="tools">
-      <input id="q" type="search" placeholder="Search by name" aria-label="Search by name">
-      <select id="tierSel" aria-label="Filter by tier"></select>
-      <select id="sortSel" aria-label="Sort"><option value="desc">Highest spending</option><option value="asc">Lowest spending</option></select>
+  <section id="reward" hidden>
+    <div class="reward-head">
+      <p class="eyebrow">THE SPECIAL REWARD / TOP 3 EXCLUSIVE</p>
+      <h2>Make every move<br><em>count.</em></h2>
+      <p class="reward-intro">A more active lifestyle starts with a step. Get ready to bring the movement home with a special reward from Bodimax.</p>
     </div>
-    <div id="full"></div>
-    <button class="more" id="more" hidden>Show more</button>
+    <div class="reward-card">
+      <div class="reward-copy">
+        <span class="reward-kicker">TOP 3 SPECIAL REWARD</span>
+        <h3>BODIMAX<br><em>TREADMILL</em></h3>
+        <p>Bring your workout closer. Enjoy the flexibility to stay active, build a routine, and make time for movement from the comfort of home.</p>
+        <div class="reward-values">
+          <div><b>AT-HOME</b><span>Workout on your own schedule</span></div>
+          <div><b>EVERYDAY</b><span>Make movement part of your routine</span></div>
+          <div><b>YOUR PACE</b><span>Move at a pace that feels right for you</span></div>
+        </div>
+      </div>
+      <div class="reward-visual">
+        <div class="reward-orbit"></div>
+        <div class="reward-product-label">MOVE<br>WITH<br>INTENTION.</div>
+        <div class="reward-product-placeholder">
+          <span>PRODUCT VISUAL</span>
+          <b>BODIMAX</b>
+          <small>TREADMILL</small>
+        </div>
+        <p class="reward-footnote">Product image and exact model specifications can be added here.</p>
+      </div>
+    </div>
   </section>
 </main>
 <footer id="foot"></footer>
@@ -172,7 +213,7 @@ const CONFIG = {
   BRAND: 'Wardrobe Refresh',        // used when the Config sheet has no "brand" row
   REFRESH_SECONDS: 45,
   TOP_N: 10,
-  PAGE_SIZE: 25,
+  PAGE_SIZE: 25, // retained for compatibility; customer directory is no longer displayed
   LOCALE: 'id-ID', CURRENCY: 'IDR'
 };
 
@@ -278,28 +319,10 @@ function renderList(rows) {
     const dy = old - el.getBoundingClientRect().top; if (dy) el.animate([{transform:`translateY(${dy}px)`},{transform:'none'}],{duration:700,easing:'cubic-bezier(.2,.8,.2,1)'});
   });
 }
-function renderTicker(top) {
-  const s = top.map(c => `<span>${esc(c.name)}</span><i>◆</i>`).join(''); $('ticker').innerHTML = `<div class="tk">${s}${s}${s}</div>`;
+function renderTicker() {
+  const message = '<span>TOP 3 GET SPECIAL REWARD</span><i>✦</i><span>BODIMAX TREADMILL</span><i>✦</i>';
+  $('ticker').innerHTML = `<div class="tk">${message}${message}${message}</div>`;
 }
-function renderStats(all) {
-  const t = state.total, v = [all.length, t, all[0].spend, Math.round(t / all.length)], l = ['Customers','Total spending','Highest spending','Average per customer'];
-  $('stats').innerHTML = v.map((n, i) => `<div class="stat"><b data-to="${n}" data-f="${i}">${FMT[i](state.first ? 0 : n)}</b><span>${l[i]}</span></div>`).join('');
-  if (state.first) $('stats').querySelectorAll('b').forEach(b => io.observe(b));
-}
-function renderDirectory() {
-  const q = $('q').value.trim().toLowerCase(), t = $('tierSel').value, asc = $('sortSel').value === 'asc';
-  let rows = state.all.filter(c => (!q || c.name.toLowerCase().includes(q)) && (!t || c.tier === t));
-  if (asc) rows = rows.slice().sort((a,b) => a.spend - b.spend);
-  $('full').innerHTML = rows.length ? rows.slice(0, state.shown).map(c => item(c, 'in', 0, false)).join('')
-    : '<div class="note">No customers match your search. Clear the filters to see everyone.</div>';
-  $('more').hidden = rows.length <= state.shown;
-}
-function syncTierOptions() {
-  const sel = $('tierSel'), cur = sel.value, tiers = [...new Set(state.all.map(c => c.tier).filter(Boolean))];
-  sel.innerHTML = '<option value="">All tiers</option>' + tiers.map(t => `<option ${t===cur?'selected':''}>${esc(t)}</option>`).join('');
-  sel.hidden = !tiers.length;
-}
-
 function render(raw) {
   const all = normalize(raw), cfg = raw.config || {};
   $('brand').textContent = cfg.brand || CONFIG.BRAND;
@@ -308,12 +331,12 @@ function render(raw) {
   $('dot').classList.add('live');
   if (!all.length) { $('state').hidden = false; $('state').textContent = 'No customers yet. Add rows to the Spenders sheet and they will appear here.'; return; }
   $('state').hidden = true; $('state').className = 'note';
-  ['ticker','podium','board','statsec','dir'].forEach(id => $(id).hidden = false);
+  ['ticker','podium','board','reward'].forEach(id => $(id).hidden = false);
   state.all = all; state.total = all.reduce((s,c) => s + c.spend, 0);
   const topKey = JSON.stringify(all.slice(0, CONFIG.TOP_N).map(c => [c.name, c.spend]));
   const fullKey = JSON.stringify(all.map(c => [c.name, c.spend, c.tier]));
-  if (topKey !== state.lastKey) { renderPodium(all.slice(0,3)); renderList(all.slice(3, CONFIG.TOP_N)); renderTicker(all.slice(0, CONFIG.TOP_N)); state.lastKey = topKey; }
-  if (fullKey !== state.fullKey) { renderStats(all); syncTierOptions(); renderDirectory(); state.fullKey = fullKey; }
+  if (topKey !== state.lastKey) { renderPodium(all.slice(0,3)); renderList(all.slice(3, CONFIG.TOP_N)); renderTicker(); state.lastKey = topKey; }
+  if (fullKey !== state.fullKey) { state.fullKey = fullKey; }
   if (state.ranks) all.slice(0, CONFIG.TOP_N).map(c => ({c, d: (state.ranks[c.name] ?? 99) - c.rank})).filter(x => x.d > 0).sort((a,b) => b.d - a.d).slice(0, 2)
     .forEach(({c}) => toast(c.rank === 1 ? `${c.name} takes the #1 spot` : `${c.name} climbed to #${c.rank}`));
   state.ranks = Object.fromEntries(all.map(c => [c.name, c.rank]));
